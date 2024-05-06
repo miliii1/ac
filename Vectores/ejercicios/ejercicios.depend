@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1714958042 source:c:\users\milagros\onedrive\escritorio\utn\informatica i\ejercicios\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1714956575 source:c:\users\milagros\onedrive\escritorio\utn\informatica i\ejercicios\untitled1.c
+	<stdio.h>
+	<stdlib.h>
+
+1714956644 source:c:\users\milagros\onedrive\escritorio\utn\informatica i\ejercicios\ejercicio3.c
+	<stdio.h>
+	<stdlib.h>
+
+1714958246 source:c:\users\milagros\onedrive\escritorio\utn\informatica i\ejercicios\ejercicio2.c
+	<stdio.h>
+	<stdbool.h>
+
