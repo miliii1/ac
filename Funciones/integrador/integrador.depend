@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1714954176 source:c:\users\milagros\onedrive\escritorio\utn\informatica i\integrador\main.c
+	<stdio.h>
+	<stdbool.h>
+
