@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*7) Diseñar una funcion que recibe un vector de N muestras y dos vectores de
-tamaño N/2. La funcion guarda en sendos vectores las muestras mas bajas y
+/*7) DiseÃ±ar una funcion que recibe un vector de N muestras y dos vectores de
+tamaÃ±o N/2. La funcion guarda en sendos vectores las muestras mas bajas y
 mas altas.
 void partir (int * vector, int * menores, int * mayores, int n);
-Si el tamaño del vector no es un numero par, la función indica un mensaje de
+Si el tamaÃ±o del vector no es un numero par, la funciÃ³n indica un mensaje de
 error y no parte el vector.*/
 
 
 void partir(int *vector, int *menores, int *mayores, int n) {
-    // verifico si el tamaño del vector es par
+    // verifico si el tamaÃ±o del vector es par
     if (n % 2 != 0) {
-        printf("Error: El tamaño del vector no es par.\n");
+        printf("Error: El tamaÃ±o del vector no es par.\n");
         return;
     }
 
@@ -40,11 +40,11 @@ void partir(int *vector, int *menores, int *mayores, int n) {
 
 int main() {
     int vector[] = {3, 1, 4, 1, 5, 9}; // ejem de vector
-    int n = sizeof(vector) / sizeof(vector[0]); // tamaño del vector
+    int n = sizeof(vector) / sizeof(vector[0]); // tamaÃ±o del vector
 
-    // creo vectores para las muestras más bajas y más altas
-    int *menores = (int *)malloc(n / 2 * sizeof(int));
-    int *mayores = (int *)malloc(n / 2 * sizeof(int));
+    // creo vectores para las muestras mÃ¡s bajas y mÃ¡s altas
+    int menores [n / 2];
+    int mayores [n / 2];
 
     partir(vector, menores, mayores, n);
 
@@ -59,10 +59,6 @@ int main() {
         printf("%d ", mayores[i]);
     }
     printf("\n");
-
-    // liberp memoria
-    free(menores);
-    free(mayores);
 
     return 0;
 }
