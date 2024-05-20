@@ -1,33 +1,93 @@
-#ifndef FUNCIONES_H_INCLUDED
-#define FUNCIONES_H_INCLUDED
+#include <stdio.h>
 
 #define MAX_IDS 10
 
-typedef struct {
-    int id;
-    float temperatura;
-    float presion;
-} Data;
+void cargarIDs(int ids[], float temperaturas[], float presiones[], int *cantidadIDs);
+int buscarID(int ids[], int cantidadIDs, int id);
+void imprimirLista(int ids[], float temperaturas[], float presiones[], int cantidadIDs);
+void ordenarLista(int ids[], float temperaturas[], float presiones[], int cantidadIDs);
+void eliminarID(int ids[], float temperaturas[], float presiones[], int *cantidadIDs, int id);
+void buscarMediciones(int ids[], float temperaturas[], float presiones[], int cantidadIDs, int id);
+void maxTempID(int ids[], float temperaturas[], float presiones[], int cantidadIDs);
+void minTempID(int ids[], float temperaturas[], float presiones[], int cantidadIDs);
+void promedioTempPres(int ids[], float temperaturas[], float presiones[], int cantidadIDs);
 
-void cargarIDs(Data ids[], int *cantidadIDs);
-void buscarID(Data ids[], int cantidadIDs);
-void imprimirLista(Data ids[], int cantidadIDs);
-void ordenarLista(Data ids[], int cantidadIDs);
-void eliminarID(Data ids[], int *cantidadIDs);
-void buscarMediciones(Data ids[], int cantidadIDs);
-void maxTempID(Data ids[], int cantidadIDs);
-void minTempID(Data ids[], int cantidadIDs);
-void promedioTempPres(Data ids[], int cantidadIDs);
+int main() {
+    int cantidadIDs = 0;
+    int ids[MAX_IDS];
+    float temperaturas[MAX_IDS];
+    float presiones[MAX_IDS];
 
-#endif // FUNCIONES_H_INCLUDED
+    cargarIDs(ids, temperaturas, presiones, &cantidadIDs);
 
+    int opcion, id;
+    do {
+        printf("\nMenú:\n");
+        printf("1. Buscar un número de ID\n");
+        printf("2. Imprimir la lista de IDs\n");
+        printf("3. Ordenar la lista por número de ID creciente\n");
+        printf("4. Eliminar un ID de la lista\n");
+        printf("5. Buscar un número de ID e informar sus mediciones\n");
+        printf("6. Imprimir el ID con la máxima temperatura\n");
+        printf("7. Imprimir el ID con la mínima temperatura\n");
+        printf("8. Imprimir el promedio de temperaturas y presiones\n");
+        printf("9. Salir\n");
+        printf("Ingrese su opción: ");
+        scanf("%d", &opcion);
+
+        switch(opcion) {
+            case 1:
+                printf("Ingrese el número de ID a buscar: ");
+                scanf("%d", &id);
+                int pos = buscarID(ids, cantidadIDs, id);
+                if (pos != -1) {
+                    printf("El número de ID %d se encuentra en la posición %d.\n", id, pos + 1);
+                } else {
+                    printf("El número de ID %d no se encuentra en la lista.\n", id);
+                }
+                break;
+            case 2:
+                imprimirLista(ids, temperaturas, presiones, cantidadIDs);
+                break;
+            case 3:
+                ordenarLista(ids, temperaturas, presiones, cantidadIDs);
+                break;
+            case 4:
+                printf("Ingrese el número de ID a eliminar: ");
+                scanf("%d", &id);
+                eliminarID(ids, temperaturas, presiones, &cantidadIDs, id);
+                break;
+            case 5:
+                printf("Ingrese el número de ID a buscar sus mediciones: ");
+                scanf("%d", &id);
+                buscarMediciones(ids, temperaturas, presiones, cantidadIDs, id);
+                break;
+            case 6:
+                maxTempID(ids, temperaturas, presiones, cantidadIDs);
+                break;
+            case 7:
+                minTempID(ids, temperaturas, presiones, cantidadIDs);
+                break;
+            case 8:
+                promedioTempPres(ids, temperaturas, presiones, cantidadIDs);
+                break;
+            case 9:
+                printf("Saliendo del programa...\n");
+                break;
+            default:
+                printf("Opción no válida. Por favor, ingrese una opción válida.\n");
+        }
+    } while(opcion != 9);
+
+    return 0;
+}
 
 
 
 #include <stdio.h>
 #include "funciones.h"
 
-void cargarIDs(Data ids[], int *cantidadIDs) {
+void cargarIDs(int ids[], float temperaturas[], float presiones[], int *cantidadIDs) {
     int id;
     while (*cantidadIDs < MAX_IDS) {
         printf("Ingrese ID (0 para terminar): ");
@@ -36,7 +96,7 @@ void cargarIDs(Data ids[], int *cantidadIDs) {
 
         int repetido = 0;
         for (int i = 0; i < *cantidadIDs; i++) {
-            if (ids[i].id == id) {
+            if (ids[i] == id) {
                 repetido = 1;
                 break;
             }
@@ -44,130 +104,135 @@ void cargarIDs(Data ids[], int *cantidadIDs) {
         if (repetido) {
             printf("ID repetido. Ingrese un ID diferente.\n");
         } else {
-            ids[*cantidadIDs].id = id;
+            ids[*cantidadIDs] = id;
             printf("Ingrese temperatura: ");
-            scanf("%f", &ids[*cantidadIDs].temperatura);
+            scanf("%f", &temperaturas[*cantidadIDs]);
             printf("Ingrese presión: ");
-            scanf("%f", &ids[*cantidadIDs].presion);
+            scanf("%f", &presiones[*cantidadIDs]);
             (*cantidadIDs)++;
         }
     }
 }
 
-void buscarID(Data ids[], int cantidadIDs) {
-    int id;
-    printf("Ingrese el número de ID a buscar: ");
-    scanf("%d", &id);
-
+int buscarID(int ids[], int cantidadIDs, int id) {
     for (int i = 0; i < cantidadIDs; i++) {
-        if (ids[i].id == id) {
-            printf("El número de ID %d se encuentra en la posición %d.\n", id,
-
-
-
-
-
- i + 1);
-            return;
+        if (ids[i] == id) {
+            return i;
         }
     }
-    printf("El número de ID %d no se encuentra en la lista.\n", id);
+    return -1;
 }
 
-void imprimirLista(Data ids[], int cantidadIDs) {
+void imprimirLista(int ids[], float temperaturas[], float presiones[], int cantidadIDs) {
     printf("Lista de IDs y sus mediciones:\n");
     for (int i = 0; i < cantidadIDs; i++) {
-        printf("ID: %d, Temperatura: %.2f, Presión: %.2f\n", ids[i].id, ids[i].temperatura, ids[i].presion);
+        printf("ID: %d, Temperatura: %.2f, Presión: %.2f\n", ids[i], temperaturas[i], presiones[i]);
     }
 }
 
-void ordenarLista(Data ids[], int cantidadIDs) {
+void ordenarLista(int ids[], float temperaturas[], float presiones[], int cantidadIDs) {
     for (int i = 0; i < cantidadIDs - 1; i++) {
         for (int j = 0; j < cantidadIDs - 1 - i; j++) {
-            if (ids[j].id > ids[j + 1].id) {
-                Data temp = ids[j];
+            if (ids[j] > ids[j + 1]) {
+                int tempID = ids[j];
                 ids[j] = ids[j + 1];
-                ids[j + 1] = temp;
+                ids[j + 1] = tempID;
+                
+                float tempTemp = temperaturas[j];
+                temperaturas[j] = temperaturas[j + 1];
+                temperaturas[j + 1] = tempTemp;
+                
+                float tempPres = presiones[j];
+                presiones[j] = presiones[j + 1];
+                presiones[j + 1] = tempPres;
             }
         }
     }
     printf("Lista ordenada correctamente.\n");
 }
 
-void eliminarID(Data ids[], int *cantidadIDs) {
-    int id;
-    printf("Ingrese el número de ID a eliminar: ");
-    scanf("%d", &id);
-
-    int encontrado = 0;
-    for (int i = 0; i < *cantidadIDs; i++) {
-        if (ids[i].id == id) {
-            encontrado = 1;
-            for (int j = i; j < *cantidadIDs - 1; j++) {
-                ids[j] = ids[j + 1];
-            }
-            (*cantidadIDs)--;
-            printf("ID eliminado correctamente.\n");
-            break;
+void eliminarID(int ids[], float temperaturas[], float presiones[], int *cantidadIDs, int id) {
+    int pos = buscarID(ids, *cantidadIDs, id);
+    if (pos != -1) {
+        for (int i = pos; i < *cantidadIDs - 1; i++) {
+            ids[i] = ids[i + 1];
+            temperaturas[i] = temperaturas[i + 1];
+            presiones[i] = presiones[i + 1];
         }
-    }
-    if (!encontrado) {
+        (*cantidadIDs)--;
+        printf("ID eliminado correctamente.\n");
+    } else {
         printf("El número de ID %d no se encuentra en la lista.\n", id);
     }
 }
 
-void buscarMediciones(Data ids[], int cantidadIDs) {
-    int id;
-    printf("Ingrese el número de ID a buscar sus mediciones: ");
-    scanf("%d", &id);
-
-    for (int i = 0; i < cantidadIDs; i++) {
-        if (ids[i].id == id) {
-            printf("ID: %d, Temperatura: %.2f, Presión: %.2f\n", id, ids[i].temperatura, ids[i].presion);
-            return;
-        }
+void buscarMediciones(int ids[], float temperaturas[], float presiones[], int cantidadIDs, int id) {
+    int pos = buscarID(ids, cantidadIDs, id);
+    if (pos != -1) {
+        printf("ID: %d, Temperatura: %.2f, Presión: %.2f\n", ids[pos], temperaturas[pos], presiones[pos]);
+    } else {
+        printf("El número de ID %d no se encuentra en la lista.\n", id);
     }
-    printf("El número de ID %d no se encuentra en la lista.\n", id);
 }
 
-void maxTempID(Data ids[], int cantidadIDs) {
+void maxTempID(int ids[], float temperaturas[], float presiones[], int cantidadIDs) {
     if (cantidadIDs == 0) {
         printf("La lista está vacía.\n");
         return;
     }
     int maxIndex = 0;
     for (int i = 1; i < cantidadIDs; i++) {
-        if (ids[i].temperatura > ids[maxIndex].temperatura) {
+        if (temperaturas[i] > temperaturas[maxIndex]) {
             maxIndex = i;
         }
     }
-    printf("ID con la máxima temperatura: %d, Temperatura: %.2f, Presión: %.2f\n", ids[maxIndex].id, ids[maxIndex].temperatura, ids[maxIndex].presion);
+    printf("ID con la máxima temperatura: %d, Temperatura: %.2f, Presión: %.2f\n", ids[maxIndex], temperaturas[maxIndex], presiones[maxIndex]);
 }
 
-void minTempID(Data ids[], int cantidadIDs) {
+void minTempID(int ids[], float temperaturas[], float presiones[], int cantidadIDs) {
     if (cantidadIDs == 0) {
         printf("La lista está vacía.\n");
         return;
     }
     int minIndex = 0;
     for (int i = 1; i < cantidadIDs; i++) {
-        if (ids[i].temperatura < ids[minIndex].temperatura) {
+        if (temperaturas[i] < temperaturas[minIndex]) {
             minIndex = i;
         }
     }
-    printf("ID con la mínima temperatura: %d, Temperatura: %.2f, Presión: %.2f\n", ids[minIndex].id, ids[minIndex].temperatura, ids[minIndex].presion);
+    printf("ID con la mínima temperatura: %d, Temperatura: %.2f, Presión: %.2f\n", ids[minIndex], temperaturas[minIndex], presiones[minIndex]);
 }
 
-void promedioTempPres(Data ids[], int cantidadIDs) {
+void promedioTempPres(int ids[], float temperaturas[], float presiones[], int cantidadIDs) {
     if (cantidadIDs == 0) {
         printf("La lista está vacía.\n");
         return;
     }
     float sumaTemp = 0, sumaPres = 0;
     for (int i = 0; i < cantidadIDs; i++) {
-        sumaTemp += ids[i].temperatura;
-        sumaPres += ids[i].presion;
+        sumaTemp += temperaturas[i];
+        sumaPres += presiones[i];
     }
     printf("Promedio de temperaturas: %.2f\n", sumaTemp / cantidadIDs);
     printf("Promedio de presiones: %.2f\n", sumaPres / cantidadIDs);
 }
+
+
+
+
+#ifndef FUNCIONES_H_INCLUDED
+#define FUNCIONES_H_INCLUDED
+
+#define MAX_IDS 10
+
+void cargarIDs(int ids[], float temperaturas[], float presiones[], int *cantidadIDs);
+int buscarID(int ids[], int cantidadIDs, int id);
+void imprimirLista(int ids[], float temperaturas[], float presiones[], int cantidadIDs);
+void ordenarLista(int ids[], float temperaturas[], float presiones[], int cantidadIDs);
+void eliminarID(int ids[], float temperaturas[], float presiones[], int *cantidadIDs, int id);
+void buscarMediciones(int ids[], float temperaturas[], float presiones[], int cantidadIDs, int id);
+void maxTempID(int ids[], float temperaturas[], float presiones[], int cantidadIDs);
+void minTempID(int ids[], float temperaturas[], float presiones[], int cantidadIDs);
+void promedioTempPres(int ids[], float temperaturas[], float presiones[], int cantidadIDs);
+
+#endif // FUNCIONES_H_INCLUDED
