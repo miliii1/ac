@@ -12,8 +12,6 @@ typedef struct {
 } Empleado;
 
 void cargarEmpleados(Empleado empleados[], int *n) {
-    // Se pueden cargar datos manualmente o desde un archivo.
-    // Aquí se muestra una carga manual de ejemplo.
     strcpy(empleados[0].dni, "12345678");
     strcpy(empleados[0].nombre, "Perez Juan");
     empleados[0].salario = 2500.00;
