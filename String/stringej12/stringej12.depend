@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1717380919 source:c:\users\milagros\onedrive\escritorio\utn\informatica i\stringej12\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
