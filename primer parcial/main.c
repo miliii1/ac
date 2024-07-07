@@ -60,6 +60,7 @@ void generarActividad() {
 }
 
 void eliminarActividad() {
+    //????
     int codigo;
     printf("Ingrese c%cdigo de la actividad a eliminar: ", 162);
     scanf("%d", &codigo);
@@ -172,7 +173,7 @@ int main() {
                 printf("Saliendo del programa.\n");
                 break;
             default:
-                printf("Opci%cn no v·lida.\n", 162);
+                printf("Opci%cn no v√°lida.\n", 162);
         }
     } while (opcion != 7);
     return 0;
