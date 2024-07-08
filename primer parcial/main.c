@@ -108,6 +108,15 @@ void asignarSocioAActividad() {
     printf("Actividad no encontrada.\n");
 }
 
+void mostrarSociosInscriptos() {
+    printf("Listado de Socios inscriptos:\n");
+    for(int i = 0; i < numSocios; ++i) {
+        // me falta esto!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
+}
+
 void mostrarSociosInactivos() {
     printf("Socios inactivos:\n");
     for (int i = 0; i < numSocios; ++i) {
