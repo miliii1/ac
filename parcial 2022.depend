@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1720450304 source:c:\users\laboratorio\desktop\guardar archivos aqui\parcial 2023 1_4\parcial 2022\funciones.c
+
+1720450845 source:c:\users\laboratorio\desktop\guardar archivos aqui\parcial 2023 1_4\parcial 2022\main.c
+	<stdio.h>
+	"funciones.h"
+
+1720450939 c:\users\laboratorio\desktop\guardar archivos aqui\parcial 2023 1_4\parcial 2022\funciones.h
+
+1720450851 source:c:\users\laboratorio\desktop\guardar archivos aqui\parcial 2023 1_4\parcial 2022\animal.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"animal.h"
+
+1720450857 c:\users\laboratorio\desktop\guardar archivos aqui\parcial 2023 1_4\parcial 2022\animal.h
+
