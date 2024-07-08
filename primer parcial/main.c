@@ -16,6 +16,7 @@ typedef struct {
     int codigo;
     char nombre[MAX_NOMBRE_ACTIVIDAD];
     int inscritos;
+    // es un arreglo de punteros a socios, e inscriptos lleva la cuenta de cuantos socios estan inscriptos en esa act
 } Actividad;
 
 Socio socios[MAX_SOCIOS];
@@ -26,7 +27,7 @@ int numActividades = 0;
 
 void ingresarSocio() {
     if (numSocios >= MAX_SOCIOS) {
-        printf("M%cximo de socios alcanzado.\n", 160);
+        printf("Maximo de socios alcanzado.\n", 160);
         return;
     }
     Socio nuevo;
@@ -42,9 +43,13 @@ void ingresarSocio() {
     printf("Socio ingresado con %cxito.\n", 130);
 }
 
+void mostrarSocio() {
+
+}
+
 void generarActividad() {
     if (numActividades >= MAX_ACTIVIDADES) {
-        printf("M%cximo de actividades alcanzado.\n", 160);
+        printf("Maximo de actividades alcanzado.\n", 160);
         return;
     }
     Actividad nueva;
@@ -60,7 +65,6 @@ void generarActividad() {
 }
 
 void eliminarActividad() {
-    //????
     int codigo;
     printf("Ingrese c%cdigo de la actividad a eliminar: ", 162);
     scanf("%d", &codigo);
@@ -78,13 +82,14 @@ void eliminarActividad() {
 }
 
 void asignarSocioAActividad() {
+    // 
     int codigo, legajo;
     printf("lista de actividades:\n");
     for (int i = 0; i < numActividades; ++i) {
         printf("%d: %s\n", actividades[i].codigo, actividades[i].nombre);
     }
-    printf("Ingrese c%cdigo de actividad: ", 162);
-    scanf("%d", codigo);
+    printf("Ingrese codigo de actividad: ");
+    scanf("%d", &codigo);
     printf("Ingrese legajo del socio: ");
     scanf("%d", &legajo);
     for (int i = 0; i < numActividades; ++i) {
@@ -126,10 +131,10 @@ void listarActividades() {
             if (actividades[i].inscritos < actividades[j].inscritos) {
                 Actividad temp = actividades[i];
                 actividades[i] = actividades[j];
-                actividades[j] = tem;
+                actividades[j] = temp;
             }
         }
-        printf("C%cdigo: %d, Nombre: %s, Inscritos: %d\n" actividades[i].codigo, actividades[i].nombre, actividades[i].inscritos, 162);
+        printf("Codigo: %d, Nombre: %s, Inscritos: %d\n", actividades[i].codigo, actividades[i].nombre, actividades[i].inscritos, 162);
     }
 }
 
