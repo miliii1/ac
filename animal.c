@@ -1,44 +1,66 @@
 #include <stdio.h>
+#include <string.h>
+
+#define MAX_LONG 50 // Longitud máxima para cada nombre
+
+// Declaración de funciones
+void cargarNombres(int tam, char nombres[][MAX_LONG]);
+void mostrarNombres(int tam, char nombres[][MAX_LONG]);
+void ordenarNombres(int tam, char nombres[][MAX_LONG]);
 
 int main() {
-    int n, i, j, temp;
+    int n;
 
-    printf("Ingrese el tamaño del vector (n): ");
+    printf("Ingrese la cantidad de nombres (n): ");
     scanf("%d", &n);
+    getchar(); // Limpia el buffer del salto de línea de scanf
 
-    int vector[n];
+    char nombres[n][MAX_LONG];
 
-    // 2. Cargar el vector
-    printf("\n--- Carga del Vector ---\n");
-    for (i = 0; i < n; i++) {
-        printf("Ingrese el elemento [%d]: ", i);
-        scanf("%d", &vector[i]);
+    printf("\n--- Carga de Nombres ---\n");
+    cargarNombres(n, nombres);
+
+    printf("\n--- Lista Original ---\n");
+    mostrarNombres(n, nombres);
+
+    ordenarNombres(n, nombres);
+
+    printf("\n--- Lista Ordenada Alfabeticamente ---\n");
+    mostrarNombres(n, nombres);
+
+    return 0;
+}
+
+// Función para pedir los nombres
+void cargarNombres(int tam, char nombres[][MAX_LONG]) {
+    for (int i = 0; i < tam; i++) {
+        printf("Ingrese el nombre [%d]: ", i + 1);
+        fgets(nombres[i], MAX_LONG, stdin);
+        
+        // Remover el salto de linea ('\n') que deja fgets al presionar Enter
+        nombres[i][strcspn(nombres[i], "\n")] = '\0';
     }
+}
 
-    // 3. Mostrar el vector original
-    printf("\n--- Vector Original ---\n");
-    for (i = 0; i < n; i++) {
-        printf("%d ", vector[i]);
+// Función para mostrar los nombres
+void mostrarNombres(int tam, char nombres[][MAX_LONG]) {
+    for (int i = 0; i < tam; i++) {
+        printf("%d. %s\n", i + 1, nombres[i]);
     }
-    printf("\n");
+}
 
-    // 4. Ordenar el vector (Método Burbuja - Ascendente)
-    for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - i - 1; j++) {
-            if (vector[j] > vector[j + 1]) {
-                temp = vector[j];
-                vector[j] = vector[j + 1];
-                vector[j + 1] = temp;
+// Función para ordenar alfabéticamente (Método Burbuja con cadenas)
+void ordenarNombres(int tam, char nombres[][MAX_LONG]) {
+    char temp[MAX_LONG];
+    for (int i = 0; i < tam - 1; i++) {
+        for (int j = 0; j < tam - i - 1; j++) {
+            // strcmp retorna un valor > 0 si la primera cadena es alfabéticamente mayor
+            if (strcmp(nombres[j], nombres[j + 1]) > 0) {
+                // Intercambio de cadenas usando strcpy
+                strcpy(temp, nombres[j]);
+                strcpy(nombres[j], nombres[j + 1]);
+                strcpy(nombres[j + 1], temp);
             }
         }
     }
-
-    // 5. Mostrar el vector ordenado
-    printf("\n--- Vector Ordenado (Ascendente) ---\n");
-    for (i = 0; i < n; i++) {
-        printf("%d ", vector[i]);
-    }
-    printf("\n");
-
-    return 0;
 }
